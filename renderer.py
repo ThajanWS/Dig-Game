@@ -59,7 +59,7 @@ def renderer(game_state):
         
         board[game_state["Position"][0]][game_state["Position"][1]] = "👨"
 
-        print("\n"+color(" "*10 + "Island" +" "+ str(game_state["Island"]),(74, 171, 255 )))
+        print(color(" "*10 + "Island" +" "+ str(game_state["Island"]),(74, 171, 255 )))
         for i in board:
             print("\t" + "".join(i))
 

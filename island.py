@@ -1,1 +1,1 @@
-board = [[["X"] for i in range 5] for i in range 5]
+from data.py import islandData

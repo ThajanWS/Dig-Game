@@ -55,6 +55,7 @@ else:
 # Default game_state
 game_state = {
     "Island": 1,
+    "Bridges": {1:None,2:None,3:None,4:None,5:None,6:None,},
     "Coins": 0,
     "Inventory": {
             "Resources": {"Wood":0,
@@ -82,22 +83,27 @@ game_state = {
         "Shop": False
     },
     "Notifications": "",
+    "ShopState": ["Resources", 0], # tab ur on, selection
+    "InvState": ["Resources", 0],
     "Shop": {
-            "Resources": {"Wood":0,
-                            "Stone":0,
-                            "Coal":0,
-                            "Iron":0,
-                            "Gold":0,
-                            "Diamond":0,
-                            "Emerald":0
-                        },
-            "Tools": {
-                "Stone Pickaxe": [10,{"Stone":5,"Wood":2}],
-
-                }
-},
-    
+        "Resources": {
+            "Wood": 5,
+            "Stone": 10,
+            "Coal": 15,
+            "Iron": 20,
+            "Gold": 25,
+            "Diamond": 30,
+            "Emerald": 35
+        },
+        "Tools": {
+            "Stone Pickaxe": [10, {"Stone": 5, "Wood": 2}],
+            "Iron Pickaxe": [20, {"Iron": 5, "Stone": 5}],
+            "Diamond Pickaxe": [30, {"Diamond": 5, "Iron": 5}],
+            "Emerald Pickaxe": [40, {"Emerald": 5, "Diamond": 5}]
+        },
+    }
 }
+    
 
 os.system("cls" if os.name == "nt" else "clear")
 
