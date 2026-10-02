@@ -1,3 +1,4 @@
+import random
 import time, os, sys
 from renderer import renderer
 from InputProcessor import process_input
@@ -55,17 +56,11 @@ else:
 # Default game_state
 game_state = {
     "Island": 1,
-    "Bridges": {1:None,2:None,3:None,4:None,5:None,6:None,},
+    "Bridges": {1:999,2:999,3:99999,4:999999,5:999999,6:999999,},
     "Coins": 0,
+    "Factory": {"Wood":None,"Stone":None,"Iron":None,"Coal":None},
     "Inventory": {
-            "Resources": {"Wood":0,
-                            "Stone":0,
-                            "Coal":0,
-                            "Iron":0,
-                            "Gold":0,
-                            "Diamond":0,
-                            "Emerald":0
-                        },
+            "Resources": {},
             "Tools": { #lvl,xp
                 "Stone Pickaxe": [1, 0],
 
@@ -80,7 +75,7 @@ game_state = {
     ],
     "Menus": {
         "Inventory": False,
-        "Shop": False
+        "Shop": False,
     },
     "Notifications": "",
     "ShopState": ["Resources", 0], # tab ur on, selection
@@ -101,6 +96,16 @@ game_state = {
             "Diamond Pickaxe": [30, {"Diamond": 5, "Iron": 5}],
             "Emerald Pickaxe": [40, {"Emerald": 5, "Diamond": 5}]
         },
+    },
+    "AllItems": {
+        "Dirt": 1,
+        "Wood": 5,
+        "Stone": 10,
+        "Coal": 15,
+        "Iron": 20,
+        "Gold": 25,
+        "Diamond": 30,
+        "Emerald": 35
     }
 }
     
@@ -115,4 +120,11 @@ while not game_state["Quit"]:
 
     renderer(game_state)
     time.sleep(1/15)
+    if random.randint(1, 900) == 1:
+        game_state["Dug"] = [
+            [
+                [False for x in range(5)] for i in range(5)
+            ] for y in range(8)
+        ]
+        game_state["Notifications"] = "The island has been regenerated!"
     pass

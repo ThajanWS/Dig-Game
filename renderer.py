@@ -21,13 +21,22 @@ def renderer(game_state):
         print(color("Coins: " + str(game_state["Coins"]), (255, 200, 0), True) +"\n")
         
         print(color("Inventory", (255, 86, 74), True))
-        print("\nResources:")
-        for resource, amount in game_state["Inventory"]["Resources"].items():
-            print(f"{resource}: {amount}")
-        
-        print("\nTools:")
-        for tool, (lvl, xp) in game_state["Inventory"]["Tools"].items():
-            print(f"{tool} - Level: {lvl}, XP: {xp}")
+
+        print("\nResources [X]      Tools [C]")
+        if game_state["InvState"][0] == "Resources":
+            for i, (resource, amount) in enumerate(game_state["Inventory"]["Resources"].items()):
+                if i == game_state["InvState"][1]:
+                    print(color(f"{resource}: {amount} ${game_state['AllItems'][resource] * 0.7} each", (255, 255, 255), True))
+                else:
+                    print(f"{resource}: {amount}")
+            print("[ENTER] to sell")
+        else:
+            for i, (tool, (lvl, xp)) in enumerate(game_state["Inventory"]["Tools"].items()):
+                if i == game_state["InvState"][1]:
+                    print(color(f"{tool} - Level: {lvl}, XP: {xp}", (255, 255, 255), True) + " "*10)
+                else:
+                    print(f"{tool} - Level: {lvl}, XP: {xp}")
+            print("[ENTER] to sell")
 
     elif game_state["Menus"]["Shop"]:
         if menu_open != "Shop":
@@ -37,8 +46,12 @@ def renderer(game_state):
         print(color("Coins: " + str(game_state["Coins"]), (255, 200, 0), True) +"\n")
         
         print(color("Shop", (255, 0, 0), True))
+        for item,cost in game_state["Shop"]["Resources"]:
+            print(f"{item}: {cost}")
         
         shop_renderer(game_state)
+
+        
     else:
         if menu_open != "Island":
             os.system("cls" if os.name == "nt" else "clear")
@@ -59,9 +72,19 @@ def renderer(game_state):
         
         board[game_state["Position"][0]][game_state["Position"][1]] = "👨"
 
-        print(color(" "*10 + "Island" +" "+ str(game_state["Island"]),(74, 171, 255 )))
+        print(color(" "*18 + "Island" +" "+ str(game_state["Island"]),(74, 171, 255 )))
+        count = 0
         for i in board:
-            print("\t" + "".join(i))
+            count += 1
+            if count != 3 and count != 4:
+                print("\t\t" + "".join(i))
+            else:
+                if count == 3:
+                    print(f"  🟫🟫🟫        {"".join(i)}    🟫🟫🟫")
+                if count == 4:
+                    print(f"Prvs Isl [1]    {"".join(i)}   Next Isl [2]")
+            
+                        
 
         # print("\t" + "00:00" + "\t")
         
